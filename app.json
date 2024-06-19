@@ -3,7 +3,7 @@
     "name": "movie_app_react_native",
     "slug": "movie_app_react_native",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
