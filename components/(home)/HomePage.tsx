@@ -2,11 +2,12 @@ import React from 'react'
 import { View, Text, StyleSheet, StatusBar } from 'react-native'
 import HomeContainer from './HomeContainer'
 import GenresContainer from '../(genre)/GenresContainer'
+import PopularContainer from './PopularContainer'
 
 const HomePage = () => {
   return (
     <View style={styles.container}>
-        <GenresContainer />
+        <PopularContainer />
     </View>
   )
 }
