@@ -5,7 +5,6 @@ import GenresContainer from './GenresContainer'
 const GenresPage = () => {
   return (
     <View style={styles.container}>
-        <Text style={styles.text}>GenresPage</Text>
         <GenresContainer />
     </View>
   )

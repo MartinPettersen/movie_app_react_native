@@ -1,10 +1,19 @@
-import React from 'react'
-import GenresPage from '../components/(genre)/GenresPage'
+import React from "react";
+import GenresPage from "../components/(genre)/GenresPage";
+import { View, StyleSheet } from "react-native";
 
 const GenresScreen = () => {
   return (
-    <GenresPage />
-  )
-}
+    <View style={styles.background}>
+      <GenresPage />
+    </View>
+  );
+};
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: "black",
+  },
+});
 
-export default GenresScreen
+export default GenresScreen;
