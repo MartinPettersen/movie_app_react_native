@@ -1,38 +1,50 @@
-import React from 'react'
-import { ImageBackground, View, StyleSheet, Text, ActivityIndicator } from 'react-native'
+import React from 'react';
+import { ImageBackground, StyleSheet, ActivityIndicator, View, Dimensions } from 'react-native';
 
 const Loading = () => {
+
+  const { width, height } = Dimensions.get('window');
+  const isLandscape = width > height;
+
+  if (isLandscape){
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../../assets/images/movie_poster_landscape.png')}
+          style={styles.background}
+          imageStyle={styles.image}
+        >
+          <ActivityIndicator size="large" color="white" />
+        </ImageBackground>
+      </View>
+    );    
+  }
+
   return (
-    <ImageBackground
-      source={require('../../assets/images/movie_poster.png')}
-      style={styles.background}
-    >
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../../assets/images/movie_poster.png')}
+        style={styles.background}
+        imageStyle={styles.image}
+      >
+        <ActivityIndicator size="large" color="white" />
+      </ImageBackground>
+    </View>
+  );
+};
 
-    <ActivityIndicator size="large" color="white" />
-    </ImageBackground>
-  )
-}
-
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   background: {
     flex: 1,
-    resizeMode: 'cover',
     justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 1, 
+    alignItems: 'center',
   },
-  text: {
-    color: 'white',
-    fontSize: 30,
-    textAlign: 'center',
-    zIndex: 2,
-    marginTop: 100,
-    marginBottom: 100,
- }
-})
+  image: {
+    resizeMode: 'cover',
+  },
+});
 
-export default Loading
+export default Loading;
