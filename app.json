@@ -4,7 +4,7 @@
     "slug": "movie_app_react_native",
     "version": "1.0.0",
     "backgroundColor": "red",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

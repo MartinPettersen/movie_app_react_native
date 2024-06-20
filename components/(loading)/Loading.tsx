@@ -1,29 +1,23 @@
-import React from 'react';
-import { ImageBackground, StyleSheet, ActivityIndicator, View, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ImageBackground, StyleSheet, ActivityIndicator, View, Dimensions, StatusBar } from 'react-native';
 
 const Loading = () => {
+  const [isLandscape, setIsLandscape] = useState(false);
 
-  const { width, height } = Dimensions.get('window');
-  const isLandscape = width > height;
+  useEffect(() => {
+    const updateOrientation = () => {
+      const { width, height } = Dimensions.get('window');
+      setIsLandscape(width > height);
+    };
 
-  if (isLandscape){
-    return (
-      <View style={styles.container}>
-        <ImageBackground
-          source={require('../../assets/images/movie_poster_landscape.png')}
-          style={styles.background}
-          imageStyle={styles.image}
-        >
-          <ActivityIndicator size="large" color="white" />
-        </ImageBackground>
-      </View>
-    );    
-  }
+    Dimensions.addEventListener('change', updateOrientation);
+    return () => Dimensions.removeEventListener('change', updateOrientation);
+  }, []);
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../../assets/images/movie_poster.png')}
+        source={isLandscape ? require('../../assets/images/movie_poster_landscape.png') : require('../../assets/images/movie_poster.png')}
         style={styles.background}
         imageStyle={styles.image}
       >

@@ -17,7 +17,7 @@ const Layout = ({ children }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: 'black',
   },
 });
 

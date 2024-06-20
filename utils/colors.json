@@ -1,0 +1,21 @@
+{
+    "Action": "#f87171",
+    "Adventure": "#a3e635",
+    "Animation": "#eab308",
+    "Comedy": "#2dd4bf",
+    "Crime": "#6366f1",
+    "Documentary": "blue",
+    "Drama": "#d946ef",
+    "Family": "#a78bfa",
+    "Fantasy": "#06b6d4",
+    "History": "#f59e0b",
+    "Horror": "red",
+    "Music": "yellow",
+    "Mystery": "#34d399",
+    "Romance": "#ec4899",
+    "Science Fiction": "blue",
+    "TV Movie": "#0ea5e9",
+    "Thriller": "#60a5fa",
+    "War": "#4ade80",
+    "Western": "#f97316"
+}

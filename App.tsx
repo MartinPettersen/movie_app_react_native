@@ -3,14 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import Layout from './Layout';
 import Loading from './components/(loading)/Loading';
 import { usefetchMovieDBData } from './hooks/useGetMovieDBData';
+import HomeScreen from './screens/HomeScreen';
 
 export default function App() {
 
-  usefetchMovieDBData()
+  // usefetchMovieDBData()
 
   return (
     <Layout >
-      <Loading />
+      <HomeScreen />
 
       <StatusBar style="auto" />
       </Layout>
@@ -18,11 +19,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red',
-    
-  },
+  
 });
