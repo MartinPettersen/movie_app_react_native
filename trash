@@ -1,0 +1,15 @@
+import React from 'react';
+import { View } from 'react-native';
+
+function App() {
+  return (
+    <View>
+      <View style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
+        <!-- Layer 1 content -->
+      </View>
+      <View style={{ position: 'absolute', top: 50, left: 0, zIndex: 2 }}>
+        <!-- Layer 2 content -->
+      </View>
+    </View>
+  );
+}
