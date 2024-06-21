@@ -7,10 +7,12 @@ import { useGetTopRatedMovies } from "../../hooks/useGetTopRatedMovies";
 import TopRatedContainer from "../(toprated)/TopRatedContainer";
 import { useGetDiscoverMovies } from "../../hooks/useGetDiscoverMovies";
 import MovieListContainer from "./MovieListContainer";
+import { useGetCinemaMovies } from "../../hooks/useGetCinemaMovies";
 
 const HomePage = () => {
   const discoverMovies = useGetDiscoverMovies();
-
+  const cinemaMovies = useGetCinemaMovies();
+  
   return (
     <View style={styles.container}>
       <PopularContainer />
@@ -28,9 +30,9 @@ const HomePage = () => {
 
         <View style={styles.section}>
           <MovieListContainer
-            headline="Oppdag Spennende Nyheter innen Filmverdenen"
-            text="Opplev De Nyeste Filmene Nå"
-            movies={discoverMovies}
+            headline="Nå på Kino"
+            text="Se de Ferskeste Filmene på Stor Skjerm"
+            movies={cinemaMovies}
           />
         </View>
         <View style={styles.section}>
