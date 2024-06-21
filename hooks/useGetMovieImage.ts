@@ -4,14 +4,13 @@ import { Genre, MovieType } from '../utils/types';
 
 export const useGetPopularMovies = () => {
   const [movies, setMovies] = useState<MovieType[]>([]);
-  console.log("popular")
+  
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const url = `https://api.themoviedb.org/3/movie/popular?&api_key=${THEMOVIEDB_KEY}`;
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data)
         setMovies(data.results);
       } catch (error) {
         console.log(error);

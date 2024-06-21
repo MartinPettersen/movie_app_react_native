@@ -12,18 +12,20 @@ const MovieCircles = ({ movies, currentIndex }: Props) => {
   return (
     <View style={styles.indexer}>
     {movies.map((_, i) => (
+      <View key={i} style={styles.iconContainer}>
       <Feather
-        key={i}
         name={"circle"}
-        size={i === currentIndex ? 25 : 10}
+        size={i === currentIndex ? 18 : 10}
         color={"white"}
       />
+      </View>
     ))}
   </View>
   )
 }
 
-const styles = StyleSheet.create({  indexer: {
+const styles = StyleSheet.create({  
+  indexer: {
     position: "absolute",
     bottom: 1,
     left: 0,
@@ -34,6 +36,9 @@ const styles = StyleSheet.create({  indexer: {
     justifyContent: "center",
     alignItems: "center",
   },
+  iconContainer: {
+    padding: 2,
+  }
 });
 
 export default MovieCircles

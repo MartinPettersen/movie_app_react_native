@@ -3,12 +3,14 @@ import { FlatList, ScrollView, View, Text } from 'react-native'
 import { useGetMovieGenres } from '../../hooks/useGetMovieGenres';
 import { Genre, MovieType } from '../../utils/types';
 import { useGetPopularMovies } from '../../hooks/useGetPopularMovies';
+import { useGetTopRatedMovies } from '../../hooks/useGetTopRatedMovies';
 
 type RenderProp = {
     item: MovieType
 }
 
 const HomeContainer = () => {
+
 
 
     const movies = useGetPopularMovies()

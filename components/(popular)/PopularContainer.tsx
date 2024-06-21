@@ -62,7 +62,6 @@ const PopularContainer = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red",
     height: 250,
     position: "relative",
   },
@@ -79,14 +78,15 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: 0,
+    top: 134,
     left: 0,
+    fontWeight: "bold",
+    fontSize: 26,
     right: 0,
     color: "white",
     paddingHorizontal: 10,
     paddingVertical: 5,
     textAlign: "center",
-    fontSize: 16,
   },
   indexer: {
     position: "absolute",
