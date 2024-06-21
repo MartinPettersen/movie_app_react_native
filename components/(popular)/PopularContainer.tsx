@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   FlatList,
   View,
@@ -6,10 +6,13 @@ import {
   Image,
   Dimensions,
   StyleSheet,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from "react-native";
 import { useGetPopularMovies } from "../../hooks/useGetPopularMovies";
 import { MovieType } from "../../utils/types";
 import { Feather } from "@expo/vector-icons";
+import MovieCircles from "./MovieCircles";
 
 const { width } = Dimensions.get("window");
 
@@ -20,8 +23,7 @@ type RenderProp = {
 
 const PopularContainer = () => {
   const movies = useGetPopularMovies();
-
-  const number_of_movies = movies.length;
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const renderMovieItem = ({ item, index }: RenderProp) => (
     <View style={styles.card}>
@@ -33,11 +35,14 @@ const PopularContainer = () => {
         resizeMode="cover"
       />
       <Text style={styles.title}>{item.original_title}</Text>
-      <View style={styles.indexer}>
-        <Feather name={"circle"} size={25} color={"white"} />
-      </View>
     </View>
   );
+
+  const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.floor(contentOffsetX / (width - 20));
+    setCurrentIndex(index);
+  };
 
   return (
     <View style={styles.container}>
@@ -48,7 +53,9 @@ const PopularContainer = () => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={handleScrollEnd}
       />
+      <MovieCircles movies={movies} currentIndex={currentIndex} />
     </View>
   );
 };
@@ -57,9 +64,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "red",
     height: 250,
+    position: "relative",
   },
   card: {
-    width: width - 20, // Adjust if needed
+    width: width - 20,
     marginHorizontal: 10,
     marginTop: 10,
     borderRadius: 10,
@@ -80,17 +88,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
   },
-
   indexer: {
     position: "absolute",
-    top: 205,
+    bottom: 1,
     left: 0,
     right: 0,
-    color: "white",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    textAlign: "center",
-    fontSize: 16,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, StatusBar } from 'react-native'
 import HomeContainer from './HomeContainer'
 import GenresContainer from '../(genre)/GenresContainer'
-import PopularContainer from './PopularContainer'
+import PopularContainer from '../(popular)/PopularContainer'
 
 const HomePage = () => {
   return (
