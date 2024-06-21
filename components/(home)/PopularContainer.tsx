@@ -1,42 +1,97 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, ScrollView, View, Text, Image, Dimensions } from 'react-native'
-import { useGetMovieGenres } from '../../hooks/useGetMovieGenres';
-import { Genre, MovieType } from '../../utils/types';
-import { useGetPopularMovies } from '../../hooks/useGetPopularMovies';
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  StyleSheet,
+} from "react-native";
+import { useGetPopularMovies } from "../../hooks/useGetPopularMovies";
+import { MovieType } from "../../utils/types";
+import { Feather } from "@expo/vector-icons";
+
+const { width } = Dimensions.get("window");
 
 type RenderProp = {
-    item: MovieType
-}
-
-const { width, height } = Dimensions.get("window");
+  item: MovieType;
+  index: number;
+};
 
 const PopularContainer = () => {
+  const movies = useGetPopularMovies();
 
+  const number_of_movies = movies.length;
 
-    const movies = useGetPopularMovies()
-
-    const renderMovieItem = ({ item }: RenderProp) => (
-        <View style={{ padding: 10 }}>
-          <Image
-        style={{width: width, height:200}}
+  const renderMovieItem = ({ item, index }: RenderProp) => (
+    <View style={styles.card}>
+      <Image
+        style={styles.image}
         source={{
           uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`,
         }}
+        resizeMode="cover"
       />
-          <Text style={{color: "white"}}>{item.original_title}</Text>
-        </View>
-      );
+      <Text style={styles.title}>{item.original_title}</Text>
+      <View style={styles.indexer}>
+        <Feather name={"circle"} size={25} color={"white"} />
+      </View>
+    </View>
+  );
 
   return (
-    <View>
-        <FlatList
+    <View style={styles.container}>
+      <FlatList
         data={movies}
         renderItem={renderMovieItem}
         keyExtractor={(item: MovieType) => item.id.toString()}
-        numColumns={1}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
       />
     </View>
-  )
-}
+  );
+};
 
-export default PopularContainer
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "red",
+    height: 250,
+  },
+  card: {
+    width: width - 20, // Adjust if needed
+    marginHorizontal: 10,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 10,
+  },
+  title: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    color: "white",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    textAlign: "center",
+    fontSize: 16,
+  },
+
+  indexer: {
+    position: "absolute",
+    top: 205,
+    left: 0,
+    right: 0,
+    color: "white",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    textAlign: "center",
+    fontSize: 16,
+  },
+});
+
+export default PopularContainer;

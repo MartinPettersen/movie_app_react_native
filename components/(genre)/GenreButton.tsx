@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../utils/colors.json"
+import { useGetGenreImage } from "../../hooks/UseGetGenreImage";
 
 type Props = {
   name: string;
@@ -13,13 +14,13 @@ const GenreButton = ({ name }: Props) => {
   };
 
   const backgroundColor = (colors as Record<string, string>)[name] || "white";
-
+  const imageSource = useGetGenreImage(name);
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
         
       <View style={styles.buttonContent}>
       <ImageBackground
-            source={require("../../assets/images/(genres)/horror.png")}
+            source={imageSource}
 
         style={styles.background}
         imageStyle={styles.image}
