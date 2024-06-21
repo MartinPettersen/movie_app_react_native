@@ -5,6 +5,7 @@ import React from "react";
 import GenresScreen from "./screens/GenresScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
+import SearchScreen from "./screens/SearchScreen";
 
 const Stack = createStackNavigator();
 
@@ -47,7 +48,21 @@ const TabsNavigation = () => {
           options={{
             tabBarIcon: ({ focused }) => (
               <Feather
-                name={"arrow-right"}
+                name={"grid"}
+                size={25}
+                color={focused ? "white" : "grey"}
+              />
+            ),
+          }}
+        >
+          {() => <GenresScreen />}
+        </Tab.Screen>
+        <Tab.Screen
+          name={"TV"}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Feather
+                name={"tv"}
                 size={25}
                 color={focused ? "white" : "grey"}
               />
@@ -68,7 +83,7 @@ const TabsNavigation = () => {
             ),
           }}
         >
-          {() => <HomeScreen />}
+          {() => <SearchScreen />}
         </Tab.Screen>
       </Tab.Navigator>
   );

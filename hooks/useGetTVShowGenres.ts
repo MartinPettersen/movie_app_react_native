@@ -1,7 +1,6 @@
 import { THEMOVIEDB_KEY } from '@env';
 export const usefetchMovieDBData = async () => {
 
-  console.log(THEMOVIEDB_KEY)
 
     try {
       
