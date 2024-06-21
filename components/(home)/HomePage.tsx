@@ -8,10 +8,12 @@ import TopRatedContainer from "../(toprated)/TopRatedContainer";
 import { useGetDiscoverMovies } from "../../hooks/useGetDiscoverMovies";
 import MovieListContainer from "./MovieListContainer";
 import { useGetCinemaMovies } from "../../hooks/useGetCinemaMovies";
+import { useGetUpcomingMovies } from "../../hooks/useGetUpcomingMovies";
 
 const HomePage = () => {
   const discoverMovies = useGetDiscoverMovies();
   const cinemaMovies = useGetCinemaMovies();
+  const upcomingMovies = useGetUpcomingMovies()
   
   return (
     <View style={styles.container}>
@@ -30,16 +32,16 @@ const HomePage = () => {
 
         <View style={styles.section}>
           <MovieListContainer
-            headline="Nå på Kino"
-            text="Se de Ferskeste Filmene på Stor Skjerm"
-            movies={cinemaMovies}
+            headline="Gled Deg til Nye Eventyr"
+            text="Nye Filmer - Snart på et Kino Nær Deg"
+            movies={upcomingMovies}
           />
         </View>
         <View style={styles.section}>
           <MovieListContainer
-            headline="Oppdag Spennende Nyheter innen Filmverdenen"
-            text="Opplev De Nyeste Filmene Nå"
-            movies={discoverMovies}
+            headline="Nå på Kino"
+            text="Se de Ferskeste Filmene på Stor Skjerm"
+            movies={cinemaMovies}
           />
         </View>
       </ScrollView>
