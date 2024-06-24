@@ -12,12 +12,9 @@ type Props = {
 };
 
 const GenreButton = ({ name, id  }: Props) => {
-  const onPress = () => {
-    console.log(name);
-  };
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  console.log("id in button is " + id)
 
   const backgroundColor = (colors as Record<string, string>)[name] || "white";
   const imageSource = useGetGenreImage(name);
