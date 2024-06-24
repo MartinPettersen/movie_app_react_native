@@ -26,5 +26,5 @@ export interface MovieType {
 export type RootStackParamList = {
     Home: undefined;
     MovieDetails: { movie: MovieType };
-    GenreDetails: {genre: string};
+    GenreDetails: {genre: string, id: string};
 };

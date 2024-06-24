@@ -8,18 +8,22 @@ import { RootStackParamList } from "../../utils/types";
 
 type Props = {
   name: string;
+  id: string;
 };
 
-const GenreButton = ({ name }: Props) => {
+const GenreButton = ({ name, id  }: Props) => {
   const onPress = () => {
     console.log(name);
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  console.log("id in button is " + id)
+
   const backgroundColor = (colors as Record<string, string>)[name] || "white";
   const imageSource = useGetGenreImage(name);
+
   return (
-    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GenreDetails', { genre: name })}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GenreDetails', { genre: name, id: id })}>
         
       <View style={styles.buttonContent}>
       <ImageBackground

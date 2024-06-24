@@ -8,10 +8,10 @@ type GenreRouteProp = RouteProp<RootStackParamList, "GenreDetails">;
 
 const GenreScreen = () => {
   const route = useRoute<GenreRouteProp>();
-  const { genre } = route.params;
+  const { genre, id } = route.params;
 
   return (
-    <GenreDetailsPage genre={genre} />
+    <GenreDetailsPage genre={genre} id={id}/>
   );
 };
 

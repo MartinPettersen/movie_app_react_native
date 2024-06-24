@@ -12,9 +12,10 @@ const GenresContainer = () => {
 
 
     const movieGenres = useGetMovieGenres()
+    console.log(movieGenres)
     const renderGenreItem = ({ item }: RenderProp) => (
         <View style={{ padding: 10 }}>
-          <GenreButton name={item.name} />
+          <GenreButton name={item.name} id={item.id.toString()} />
         </View>
       );
 
