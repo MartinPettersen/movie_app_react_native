@@ -8,11 +8,13 @@ import {
   StyleSheet,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  TouchableOpacity,
 } from "react-native";
 import { useGetPopularMovies } from "../../hooks/useGetPopularMovies";
-import { MovieType } from "../../utils/types";
+import { MovieType, RootStackParamList } from "../../utils/types";
 import { Feather } from "@expo/vector-icons";
 import MovieCircles from "./MovieCircles";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
@@ -24,17 +26,20 @@ type RenderProp = {
 const PopularContainer = () => {
   const movies = useGetPopularMovies();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const renderMovieItem = ({ item, index }: RenderProp) => (
     <View style={styles.card}>
+    <TouchableOpacity onPress={() => navigation.navigate('MovieDetails', { movie: item })}>
       <Image
         style={styles.image}
         source={{
           uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`,
         }}
         resizeMode="cover"
-      />
+        />
       <Text style={styles.title}>{item.original_title}</Text>
+        </TouchableOpacity>
     </View>
   );
 

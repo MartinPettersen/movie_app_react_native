@@ -20,7 +20,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
         <Text style={styles.headline}>{movie.original_title}</Text>
         <Text style={styles.text}>Release Date: {movie.release_date}</Text>
         <Text style={styles.text}>Overview: {movie.overview}</Text>
-        <Text style={styles.text}>Rating: {movie.vote_average}/10</Text>
+        <Text style={styles.text}>Rating: {movie.vote_average}</Text>
       </View>
     </ScrollView>
   );
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 1 / 1.5,
     resizeMode: 'cover',
     marginBottom: 20,

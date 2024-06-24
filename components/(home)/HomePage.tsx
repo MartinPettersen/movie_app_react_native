@@ -9,19 +9,25 @@ import { useGetDiscoverMovies } from "../../hooks/useGetDiscoverMovies";
 import MovieListContainer from "./MovieListContainer";
 import { useGetCinemaMovies } from "../../hooks/useGetCinemaMovies";
 import { useGetUpcomingMovies } from "../../hooks/useGetUpcomingMovies";
+import { useGetPopularMovies } from "../../hooks/useGetPopularMovies";
 
 const HomePage = () => {
+  const popularMovies = useGetTopRatedMovies();
   const discoverMovies = useGetDiscoverMovies();
   const cinemaMovies = useGetCinemaMovies();
-  const upcomingMovies = useGetUpcomingMovies()
-  
+  const upcomingMovies = useGetUpcomingMovies();
+
   return (
     <View style={styles.container}>
       <PopularContainer />
       <ScrollView>
-      <View style={styles.section}>
-        <TopRatedContainer />
-      </View>
+        <View style={styles.section}>
+          <MovieListContainer
+            headline="Topp Rangerte Filmer"
+            text="Filmene som tok verden med storm"
+            movies={popularMovies}
+          />
+        </View>
         <View style={styles.section}>
           <MovieListContainer
             headline="Oppdag Spennende Nyheter innen Filmverdenen"

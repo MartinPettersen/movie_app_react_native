@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useGetMovieGenres } from "../../hooks/useGetMovieGenres";
-import { Genre, MovieType } from "../../utils/types";
+import { Genre, MovieType, RootStackParamList } from "../../utils/types";
 import { useGetPopularMovies } from "../../hooks/useGetPopularMovies";
 import { useGetTopRatedMovies } from "../../hooks/useGetTopRatedMovies";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 type RenderProp = {
   item: MovieType;
@@ -17,7 +17,8 @@ type Props = {
 }
 
 const MovieListContainer = ({headline, text, movies}: Props) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   
   const renderMovieItem = ({ item }: RenderProp) => (
     <TouchableOpacity onPress={() => navigation.navigate('MovieDetails', { movie: item })}>
