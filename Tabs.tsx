@@ -7,12 +7,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import SearchScreen from "./screens/SearchScreen";
 import MovieDetailsScreen from "./screens/MovieDetailsScreen";
+import GenreScreen from "./screens/GenreScreen";
 
 const Stack = createStackNavigator();
 
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
+const GenreStack = createStackNavigator();
 
 
 const HomeStackScreen = () => (
@@ -20,6 +22,13 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Home" component={HomeScreen} />
     <HomeStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
   </HomeStack.Navigator>
+);
+
+const GenreStackScreen = () => (
+  <GenreStack.Navigator screenOptions={{ headerShown: false }}>
+    <GenreStack.Screen name="Genres" component={GenresScreen} />
+    <GenreStack.Screen name="GenreDetails" component={GenreScreen} />
+  </GenreStack.Navigator>
 );
 
 const TabsNavigation = () => {
@@ -53,7 +62,8 @@ const TabsNavigation = () => {
           }}
         />
         <Tab.Screen
-          name={"Genres"}
+          name={"genres"}
+          component={GenreStackScreen}
           options={{
             tabBarIcon: ({ focused }) => (
               <Feather
@@ -63,9 +73,7 @@ const TabsNavigation = () => {
               />
             ),
           }}
-        >
-          {() => <GenresScreen />}
-        </Tab.Screen>
+        />
         <Tab.Screen
           name={"TV"}
           options={{
