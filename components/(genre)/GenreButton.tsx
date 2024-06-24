@@ -3,6 +3,8 @@ import { TouchableOpacity, View, Text, StyleSheet, Image, ImageBackground } from
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../utils/colors.json"
 import { useGetGenreImage } from "../../hooks/UseGetGenreImage";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../utils/types";
 
 type Props = {
   name: string;
@@ -12,11 +14,12 @@ const GenreButton = ({ name }: Props) => {
   const onPress = () => {
     console.log(name);
   };
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const backgroundColor = (colors as Record<string, string>)[name] || "white";
   const imageSource = useGetGenreImage(name);
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GenreDetails', { genre: name })}>
         
       <View style={styles.buttonContent}>
       <ImageBackground
