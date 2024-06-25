@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useGetMovieGenres } from "../../hooks/useGetMovieGenres";
 import { Genre, MovieType, RootStackParamList } from "../../utils/types";
 import { useGetPopularMovies } from "../../hooks/useGetPopularMovies";
@@ -11,29 +19,29 @@ type RenderProp = {
 };
 
 type Props = {
-  headline: string,
-  text: string,
-  movies: MovieType[],
-}
+  headline: string;
+  text: string;
+  movies: MovieType[];
+};
 
-const MovieListContainer = ({headline, text, movies}: Props) => {
+const MovieListContainer = ({ headline, text, movies }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  
   const renderMovieItem = ({ item }: RenderProp) => (
-    <TouchableOpacity onPress={() => navigation.navigate('MovieDetails', { movie: item })}>
-
-    <View style={styles.card}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`,
-        }}
-        resizeMode="cover"
+    <TouchableOpacity
+      onPress={() => navigation.navigate("MovieDetails", { movie: item })}
+    >
+      <View style={styles.card}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`,
+          }}
+          resizeMode="cover"
         />
-      <Text style={styles.title}>{item.original_title}</Text>
-    </View>
-        </TouchableOpacity>
+        <Text style={styles.title}>{item.original_title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     borderRadius: 10,
-    backgroundColor: "#18181b"
+    backgroundColor: "#18181b",
   },
   title: {
     position: "absolute",
@@ -90,7 +98,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     textAlign: "center",
   },
-
 });
 
 export default MovieListContainer;
