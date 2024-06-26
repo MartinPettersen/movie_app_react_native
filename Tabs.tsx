@@ -19,15 +19,15 @@ const GenreStack = createStackNavigator();
 
 const HomeStackScreen = () => (
   <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-    <SearchStack.Screen name="Home" component={HomeScreen} />
-    <SearchStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+    <HomeStack.Screen name="Home" component={HomeScreen} />
+    <HomeStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
   </HomeStack.Navigator>
 );
 
 const SearchStackScreen = () => (
   <SearchStack.Navigator screenOptions={{ headerShown: false }}>
-    <HomeStack.Screen name="Search" component={SearchScreen} />
-    <HomeStack.Screen name="ActorDetails" component={ActorDetailsScreen} />
+    <SearchStack.Screen name="Search" component={SearchScreen} />
+    <SearchStack.Screen name="ActorDetails" component={ActorDetailsScreen} />
   </SearchStack.Navigator>
 );
 
