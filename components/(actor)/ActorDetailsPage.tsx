@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-import { ActorType, KnownFor, MovieType, RootStackParamList } from "../../utils/types";
+import { ActorType, MovieType, RootStackParamList } from "../../utils/types";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 type Props = {
@@ -47,7 +47,7 @@ const ActorDetailsPage = ({ actor }: Props) => {
       <FlatList
         data={actor.known_for}
         renderItem={renderMovieItem}
-        keyExtractor={(item: KnownFor) => item.title}
+        keyExtractor={(item: MovieType) => item.title}
         numColumns={1}
         horizontal
         showsHorizontalScrollIndicator={false}
