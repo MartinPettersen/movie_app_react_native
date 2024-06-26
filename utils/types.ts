@@ -56,3 +56,19 @@ export type ActorInfo = {
     popularity: number;
     profile_path: string | null;
 };
+
+export interface KnownFor {
+    title: string;
+}
+
+export interface ActorType {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for: KnownFor[];
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string | null;
+}
