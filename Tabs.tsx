@@ -8,20 +8,27 @@ import { Feather } from "@expo/vector-icons";
 import SearchScreen from "./screens/SearchScreen";
 import MovieDetailsScreen from "./screens/MovieDetailsScreen";
 import GenreScreen from "./screens/GenreScreen";
+import ActorDetailsScreen from "./screens/ActorDetailsScreen";
 
 const Stack = createStackNavigator();
 
-
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
+const SearchStack = createStackNavigator();
 const GenreStack = createStackNavigator();
-
 
 const HomeStackScreen = () => (
   <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-    <HomeStack.Screen name="Home" component={HomeScreen} />
-    <HomeStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+    <SearchStack.Screen name="Home" component={HomeScreen} />
+    <SearchStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
   </HomeStack.Navigator>
+);
+
+const SearchStackScreen = () => (
+  <SearchStack.Navigator screenOptions={{ headerShown: false }}>
+    <HomeStack.Screen name="Search" component={SearchScreen} />
+    <HomeStack.Screen name="ActorDetails" component={ActorDetailsScreen} />
+  </SearchStack.Navigator>
 );
 
 const GenreStackScreen = () => (
@@ -33,76 +40,72 @@ const GenreStackScreen = () => (
 
 const TabsNavigation = () => {
   return (
-      <Tab.Navigator
-        screenOptions={{
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "grey",
-          tabBarStyle: {
-            backgroundColor: "black",
-          },
-          headerShown: false,
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 20,
-            color: "black",
-          },
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "grey",
+        tabBarStyle: {
+          backgroundColor: "black",
+        },
+        headerShown: false,
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 20,
+          color: "black",
+        },
+      }}
+    >
+      <Tab.Screen
+        name={"home"}
+        component={HomeStackScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={"film"}
+              size={25}
+              color={focused ? "white" : "grey"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={"genres"}
+        component={GenreStackScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={"grid"}
+              size={25}
+              color={focused ? "white" : "grey"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={"TV"}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Feather name={"tv"} size={25} color={focused ? "white" : "grey"} />
+          ),
         }}
       >
-        <Tab.Screen
-          name={"home"}
-          component={HomeStackScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"film"}
-                size={25}
-                color={focused ? "white" : "grey"}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={"genres"}
-          component={GenreStackScreen}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"grid"}
-                size={25}
-                color={focused ? "white" : "grey"}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={"TV"}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"tv"}
-                size={25}
-                color={focused ? "white" : "grey"}
-              />
-            ),
-          }}
-        >
-          {() => <GenresScreen />}
-        </Tab.Screen>
-        <Tab.Screen
-          name={"Search"}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <Feather
-                name={"search"}
-                size={25}
-                color={focused ? "white" : "grey"}
-              />
-            ),
-          }}
-        >
-          {() => <SearchScreen />}
-        </Tab.Screen>
-      </Tab.Navigator>
+        {() => <GenresScreen />}
+      </Tab.Screen>
+      <Tab.Screen
+        name={"Search"}
+        component={SearchStackScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={"search"}
+              size={25}
+              color={focused ? "white" : "grey"}
+            />
+          ),
+        }}
+      />
+       
+    </Tab.Navigator>
   );
 };
 

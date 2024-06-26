@@ -63,7 +63,7 @@ const SearchPage = () => {
 
   const renderActorItem = ({ item }: RenderPropActor) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("MovieDetails", { movie: item })}
+      onPress={() => navigation.navigate("ActorDetails", { actor: item })}
     >
       <View style={styles.cardActor}>
         <Image
