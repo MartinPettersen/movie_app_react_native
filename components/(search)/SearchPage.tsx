@@ -29,7 +29,7 @@ const SearchPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const movies = useGetMoviesByQuery(searchTerm);
-  const actorMovies = useGetActorsByQuery(searchTerm);
+  const actors = useGetActorsByQuery(searchTerm);
 
   const handleSearchChange = (text: string) => {
     setSearchTerm(text);
@@ -37,11 +37,11 @@ const SearchPage = () => {
 
   const handleSearch = () => {
     setSearchResult(movies);
-    setSearchResultActors(actorMovies);
+    setSearchResultActors(actors);
 
     console.log("Search term:", searchTerm);
-    console.log("Search result:", actorMovies);
-    console.log("Search result length:", actorMovies.length);
+    console.log("Search result:", actors);
+    console.log("Search result length:", actors.length);
   };
 
   const renderMovieItem = ({ item }: RenderProp) => (
@@ -117,7 +117,7 @@ const SearchPage = () => {
 
       <View style={styles.resultContainer}>
           <FlatList
-            data={actorMovies}
+            data={actors}
             renderItem={renderActorItem}
             keyExtractor={(item: ActorType) => item.id.toString()}
             numColumns={1}

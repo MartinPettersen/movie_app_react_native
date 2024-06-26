@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { THEMOVIEDB_KEY } from '@env';
-import { MovieType } from '../utils/types';
+import { ActorType, MovieType } from '../utils/types';
 
 export const useGetActorsByQuery = (query: string) => {
-  const [movies, setMovies] = useState<MovieType[]>([]);
+  const [actors, setActors] = useState<ActorType[]>([]);
   const formattedQuery = query.replace(/\s+/g, '+');
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchActors = async () => {
       try {
         
         const urlString = `https://api.themoviedb.org/3/search/person?query=${formattedQuery}&api_key=${THEMOVIEDB_KEY}`;
@@ -15,18 +15,18 @@ export const useGetActorsByQuery = (query: string) => {
 //        const urlString = `https://api.themoviedb.org/3/search/movie?query=${formattedQuery}&api_key=${THEMOVIEDB_KEY}`;
         const res = await fetch(urlString);
         const data = await res.json();
-        setMovies(data.results);
+        setActors(data.results);
       } catch (error) {
         console.log(error);
       }
     };
 
     if (formattedQuery) {
-      fetchMovies();
+      fetchActors();
     } else {
-      setMovies([]);
+      setActors([]);
     }
   }, [formattedQuery]);
 
-  return movies;
+  return actors;
 };
