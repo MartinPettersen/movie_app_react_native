@@ -7,8 +7,6 @@ import { Genre, MovieType } from '../utils/types';
 export const useGetMoviesMoviesWithGenre = (id: string) => {
   const [movies, setMovies] = useState<MovieType[]>([]);
 
-console.log("the id is " + id)
-
   useEffect(() => {
     const fetchMovies = async () => {
       try {

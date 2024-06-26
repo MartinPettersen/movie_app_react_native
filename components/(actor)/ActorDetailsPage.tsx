@@ -13,7 +13,6 @@ type RenderProp = {
 
 const ActorDetailsPage = ({ actor }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    console.log(actor.known_for)
   const renderMovieItem = ({ item }: RenderProp) => (
     <TouchableOpacity
       onPress={() => navigation.navigate("MovieDetails", { movie: item })}

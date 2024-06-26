@@ -82,17 +82,7 @@ const TabsNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={"TV"}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Feather name={"tv"} size={25} color={focused ? "white" : "grey"} />
-          ),
-        }}
-      >
-        {() => <GenresScreen />}
-      </Tab.Screen>
-      <Tab.Screen
-        name={"Search"}
+        name={"search"}
         component={SearchStackScreen}
         options={{
           tabBarIcon: ({ focused }) => (

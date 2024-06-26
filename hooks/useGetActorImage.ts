@@ -25,6 +25,5 @@ export const useGetActorImage = (personId: number) => {
     fetchMovies();
   }, []);
 
-  console.log("we return: " +actorImage)
   return actorImage;
 };

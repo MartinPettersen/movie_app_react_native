@@ -39,9 +39,6 @@ const SearchPage = () => {
     setSearchResult(movies);
     setSearchResultActors(actors);
 
-    console.log("Search term:", searchTerm);
-    console.log("Search result:", actors);
-    console.log("Search result length:", actors.length);
   };
 
   const renderMovieItem = ({ item }: RenderProp) => (
