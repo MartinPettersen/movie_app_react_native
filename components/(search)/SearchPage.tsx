@@ -94,6 +94,15 @@ const SearchPage = () => {
           <Feather name="search" size={22} color="white" />
         </TouchableOpacity>
       </View>
+      <View style={{flexDirection: "row", width: "100%", justifyContent: "center", paddingTop: 6,}}>
+
+      <TouchableOpacity style={{backgroundColor: "#18181b",width: 100, borderRadius: 25, padding: 10,justifyContent: "center",  alignItems: "center", margin: 8}} onPress={() => setShowing("movies")}>
+          <Text style={{color: "white"}}>Movies</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{backgroundColor: "#18181b",width: 100, borderRadius: 25, padding: 10,justifyContent: "center", alignItems: "center", margin: 8}} onPress={() => setShowing("actors")}>
+          <Text style={{color: "white"}}>Actors</Text>
+        </TouchableOpacity>
+      </View>
       {(searchResult.length > 0 && showing == "movies") && (
         <View style={styles.resultContainer}>
           <FlatList
