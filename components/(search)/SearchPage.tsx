@@ -41,6 +41,17 @@ const SearchPage = () => {
 
   };
 
+  const actorsWithImages = searchResultActors.filter(actor => actor.profile_path);
+  const actorsWithoutImages = searchResultActors.filter(actor => !actor.profile_path);
+  const sortedActors = [...actorsWithImages, ...actorsWithoutImages];
+
+  const moviesWithBackdrop = searchResult.filter(movie => movie.backdrop_path);
+  const moviesWithPoster = searchResult.filter(movie => !movie.backdrop_path && movie.poster_path);
+  const moviesWithoutImages = searchResult.filter(movie => !movie.backdrop_path && !movie.poster_path);
+  const sortedMovies = [...moviesWithBackdrop, ...moviesWithPoster, ...moviesWithoutImages];
+
+
+
   const renderMovieItem = ({ item }: RenderProp) => {
     const imagePath = item.backdrop_path ? item.backdrop_path : item.poster_path;
 
@@ -74,7 +85,7 @@ const SearchPage = () => {
           }}
           resizeMode="cover"
         />
-        <Text style={styles.name}>{item.original_name}</Text>
+        <Text style={styles.name}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -107,7 +118,7 @@ const SearchPage = () => {
       {(searchResult.length > 0 && showing == "movies") && (
         <View style={styles.resultContainer}>
           <FlatList
-            data={movies}
+            data={sortedMovies}
             renderItem={renderMovieItem}
             keyExtractor={(item: MovieType) => item.id.toString()}
             numColumns={1}
@@ -118,7 +129,7 @@ const SearchPage = () => {
 
       <View style={styles.resultContainer}>
           <FlatList
-            data={actors}
+            data={sortedActors}
             renderItem={renderActorItem}
             keyExtractor={(item: ActorType) => item.id.toString()}
             numColumns={1}
