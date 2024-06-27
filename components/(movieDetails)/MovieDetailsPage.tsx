@@ -25,7 +25,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const cast = useGetMovieActors(movie.id);
-
+  
 
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity

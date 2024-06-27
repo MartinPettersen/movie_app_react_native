@@ -13,7 +13,6 @@ export const useGetMoviesByActor = (personId: number) => {
         const url = `https://api.themoviedb.org/3/person/${personId}/movie_credits?language=en-US&api_key=${THEMOVIEDB_KEY}`;
         const res = await fetch(url);
         const data = await res.json();
-        //console.log(data.cast)
         if (data.cast) {
           setMovies(data.cast);
         } else {

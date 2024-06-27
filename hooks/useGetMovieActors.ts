@@ -25,7 +25,7 @@ export const useGetMovieActors = (query: number) => {
     } else {
       setMovies([]);
     }
-  }, []);
+  }, [query]);
 
   return movies;
 };

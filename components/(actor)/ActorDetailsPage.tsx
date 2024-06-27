@@ -31,9 +31,7 @@ const ActorDetailsPage = ({ actor }: Props) => {
     </TouchableOpacity>
   );
 
-  console.log(actor.id)
   const test = useGetMoviesByActor(actor.id)
-  console.log(test)
   return (
     <View style={styles.container}>
       <View style={styles.cardActor}>
