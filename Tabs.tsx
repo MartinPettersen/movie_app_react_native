@@ -21,6 +21,7 @@ const HomeStackScreen = () => (
   <HomeStack.Navigator screenOptions={{ headerShown: false }}>
     <HomeStack.Screen name="Home" component={HomeScreen} />
     <HomeStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+    <HomeStack.Screen name="ActorDetails" component={ActorDetailsScreen} />
   </HomeStack.Navigator>
 );
 

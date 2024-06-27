@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { ActorType, MovieType, RootStackParamList } from "../../utils/types";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useGetMoviesByActor } from "../../hooks/useGetMoviesByActor";
 
 type Props = {
   actor: ActorType;
@@ -30,6 +31,9 @@ const ActorDetailsPage = ({ actor }: Props) => {
     </TouchableOpacity>
   );
 
+  console.log(actor.id)
+  const test = useGetMoviesByActor(actor.id)
+  console.log(test)
   return (
     <View style={styles.container}>
       <View style={styles.cardActor}>
@@ -42,9 +46,9 @@ const ActorDetailsPage = ({ actor }: Props) => {
         />
         <Text style={styles.name}>{actor.name}</Text>
       </View>
-      <Text style={styles.text}>Kjent for:</Text>
+      <Text style={styles.text}>Filmer:</Text>
       <FlatList
-        data={actor.known_for}
+        data={test}
         renderItem={renderMovieItem}
         keyExtractor={(item: MovieType) => item.title}
         numColumns={1}
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
   name: {
     position: "absolute",
     top: 0,
-    left: -150,
+    left: 0,
     fontWeight: "bold",
     fontSize: 20,
     right: 0,
