@@ -7,18 +7,22 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import { MovieType, RootStackParamList, ActorInfo, ActorType } from "../../utils/types";
+import { MovieType, RootStackParamList, ActorInfo, ActorType, MovieTrailer } from "../../utils/types";
 import { useGetMovieActors } from "../../hooks/useGetMovieActors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useGetActorImage } from "../../hooks/useGetActorImage";
 import { useGetMoviesDetails } from "../../hooks/useGetMoviesDetails";
 import { useGetMovieTrailers } from "../../hooks/useGetMovieTrailers";
+import MovieTrailerPlayer from "./MovieTrailerPlayer";
 
 type RenderProp = {
   item: ActorType;
 };
-
+type RenderTrailerProp = {
+  item: MovieTrailer;
+};
 type Props = {
   movie: MovieType;
 };
@@ -27,9 +31,8 @@ const MovieDetailsPage = ({ movie }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const cast = useGetMovieActors(movie.id);
-  const details = useGetMoviesDetails(movie.id)  
-  const movieTrailers = useGetMovieTrailers(movie.id)
-
+  const details = useGetMoviesDetails(movie.id);
+  const movieTrailers = useGetMovieTrailers(movie.id) ?? [];
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
       onPress={() => navigation.navigate("ActorDetails", { actor: item })}
@@ -45,6 +48,9 @@ const MovieDetailsPage = ({ movie }: Props) => {
         <Text style={styles.name}>{item.name}</Text>
       </View>
     </TouchableOpacity>
+  );
+  const renderTrailerItem = ({ item }: RenderTrailerProp) => (
+      <MovieTrailerPlayer videoId={item.key} />
   );
 
   return (
@@ -68,6 +74,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
         <Text style={styles.text}>Poeng: {movie.vote_average}, Populæritet: {movie.popularity}</Text>
 
       </View>
+      
       <FlatList
         data={cast}
         renderItem={renderCastItem}
@@ -76,6 +83,15 @@ const MovieDetailsPage = ({ movie }: Props) => {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
+      {movieTrailers.length > 0 ? (
+      <FlatList
+        data={movieTrailers}
+        renderItem={renderTrailerItem}
+        keyExtractor={(item: MovieTrailer) => item.key}
+        numColumns={1}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />): null }
     </ScrollView>
   );
 };
