@@ -13,6 +13,7 @@ import { useGetMovieActors } from "../../hooks/useGetMovieActors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useGetActorImage } from "../../hooks/useGetActorImage";
 import { useGetMoviesDetails } from "../../hooks/useGetMoviesDetails";
+import { useGetMovieTrailers } from "../../hooks/useGetMovieTrailers";
 
 type RenderProp = {
   item: ActorType;
@@ -27,6 +28,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
 
   const cast = useGetMovieActors(movie.id);
   const details = useGetMoviesDetails(movie.id)  
+  const movieTrailers = useGetMovieTrailers(movie.id)
 
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
@@ -56,15 +58,14 @@ const MovieDetailsPage = ({ movie }: Props) => {
       />
       <View style={styles.content}>
         <Text style={styles.headline}>{movie.original_title}</Text>
-        <Text style={styles.text}>Utgitt: {movie.release_date}</Text>
         {details && (
           <>
-            <Text style={styles.text}>Lengde: {details.runtime} min</Text>
+            <Text style={styles.text}>Utgitt: {movie.release_date}, {details.runtime} min</Text>
+            <Text style={styles.text}>Stammer ifra: {details.origin_country}, Orginalspråk: {details.original_language}</Text>
           </>
           )}
         <Text style={styles.text}>{movie.overview}</Text>
-        <Text style={styles.text}>Poeng: {movie.vote_average}</Text>
-        <Text style={styles.text}>Populæritet: {movie.popularity}</Text>
+        <Text style={styles.text}>Poeng: {movie.vote_average}, Populæritet: {movie.popularity}</Text>
 
       </View>
       <FlatList
