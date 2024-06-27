@@ -122,6 +122,7 @@ const SearchPage = () => {
             renderItem={renderMovieItem}
             keyExtractor={(item: MovieType) => item.id.toString()}
             numColumns={1}
+            contentContainerStyle={styles.listContent}
           />
         </View>
       )}
@@ -133,6 +134,7 @@ const SearchPage = () => {
             renderItem={renderActorItem}
             keyExtractor={(item: ActorType) => item.id.toString()}
             numColumns={1}
+            contentContainerStyle={styles.listContent}
           />
         </View>
       )}
@@ -173,13 +175,16 @@ const styles = StyleSheet.create({
   resultContainer: {
     marginTop: 20,
     alignItems: "flex-start",
+    flex: 1,
   },
   resultText: {
     color: "white",
     fontSize: 16,
     marginBottom: 10,
   },
-
+  listContent: {
+    paddingBottom: 120,
+  },
   card: {
     width: 200,
     marginHorizontal: 10,
