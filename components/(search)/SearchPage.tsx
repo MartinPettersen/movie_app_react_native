@@ -41,22 +41,26 @@ const SearchPage = () => {
 
   };
 
-  const renderMovieItem = ({ item }: RenderProp) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("MovieDetails", { movie: item })}
-    >
-      <View style={styles.card}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`,
-          }}
-          resizeMode="cover"
-        />
-        <Text style={styles.title}>{item.original_title}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  const renderMovieItem = ({ item }: RenderProp) => {
+    const imagePath = item.backdrop_path ? item.backdrop_path : item.poster_path;
+
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("MovieDetails", { movie: item })}
+      >
+        <View style={styles.card}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: `https://image.tmdb.org/t/p/original${imagePath}`,
+            }}
+            resizeMode="cover"
+          />
+          <Text style={styles.title}>{item.original_title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const renderActorItem = ({ item }: RenderPropActor) => (
     <TouchableOpacity
