@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { THEMOVIEDB_KEY } from '@env';
-import { ActorInfo, MovieType } from '../utils/types';
+import { ActorInfo, ActorType, MovieType } from '../utils/types';
 import * as FileSystem from 'expo-file-system';
 
 export const useGetMovieActors = (query: number) => {
-  const [movies, setMovies] = useState<ActorInfo[]>([]);
+  const [movies, setMovies] = useState<ActorType[]>([]);
 
   useEffect(() => {
     const fetchMovies = async () => {

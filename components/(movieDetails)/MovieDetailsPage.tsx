@@ -8,13 +8,13 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { MovieType, RootStackParamList, ActorInfo } from "../../utils/types";
+import { MovieType, RootStackParamList, ActorInfo, ActorType } from "../../utils/types";
 import { useGetMovieActors } from "../../hooks/useGetMovieActors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useGetActorImage } from "../../hooks/useGetActorImage";
 
 type RenderProp = {
-  item: ActorInfo;
+  item: ActorType;
 };
 
 type Props = {
@@ -25,15 +25,21 @@ const MovieDetailsPage = ({ movie }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const cast = useGetMovieActors(movie.id);
-  const test = useGetActorImage(58395);
 
 
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("MovieDetails", { movie: movie })}
+      onPress={() => navigation.navigate("ActorDetails", { actor: item })}
     >
-      <View style={styles.card}>
-        <Text style={styles.text}>{item.name}</Text>
+    <View style={styles.cardActor}>
+        <Image
+          style={styles.imageActor}
+          source={{
+            uri: `https://image.tmdb.org/t/p/original${item.profile_path}`,
+          }}
+          resizeMode="cover"
+        />
+        <Text style={styles.name}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -56,7 +62,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
       <FlatList
         data={cast}
         renderItem={renderCastItem}
-        keyExtractor={(item: ActorInfo) => item.id.toString()}
+        keyExtractor={(item: ActorType) => item.id.toString()}
         numColumns={1}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -107,6 +113,32 @@ const styles = StyleSheet.create({
   title: {
     position: "absolute",
     top: 50,
+    left: 0,
+    fontWeight: "bold",
+    fontSize: 10,
+    width: 100,
+    right: 0,
+    color: "white",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    textAlign: "center",
+  },
+  
+  cardActor: {
+    width: 100,
+    marginHorizontal: 10,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  imageActor: {
+    width: "100%",
+    height: 100,
+    borderRadius: 250,
+    backgroundColor: "#18181b"
+  },
+  name: {
+    position: "absolute",
+    top: 65,
     left: 0,
     fontWeight: "bold",
     fontSize: 10,
