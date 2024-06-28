@@ -24,6 +24,7 @@ import { useGetMovieTrailers } from "../../hooks/useGetMovieTrailers";
 import MovieTrailerPlayer from "./MovieTrailerPlayer";
 import { useGetMovieRecommendations } from "../../hooks/useGetMovieRecommendations";
 import MovieListContainer from "../(home)/MovieListContainer";
+import { useGetSimilarMovies } from "../../hooks/useGetSimilarMovies";
 
 type RenderProp = {
   item: ActorType;
@@ -42,6 +43,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
   const details = useGetMoviesDetails(movie.id);
   const movieTrailers = useGetMovieTrailers(movie.id) ?? [];
   const recommendedMovies = useGetMovieRecommendations(movie.id);
+  const similarMovies = useGetSimilarMovies(movie.id);
 
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
@@ -148,12 +150,19 @@ const MovieDetailsPage = ({ movie }: Props) => {
         ) : null}
       </View>
       <View style={styles.section}>
-          <MovieListContainer
-            headline="Anbefalinger"
-            text="Se de Ferskeste Filmene på Stor Skjerm"
-            movies={recommendedMovies}
-          />
-        </View>
+        <MovieListContainer
+          headline="Anbefalinger"
+          text="Fordi en god film alltid fortjener en oppfølger"
+          movies={recommendedMovies}
+        />
+      </View>
+      <View style={styles.section}>
+        <MovieListContainer
+          headline="Lignende Filmer Du Vil Elsker"
+          text="Filmopplevelser som gir mer av det du elsker"
+          movies={similarMovies}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -258,8 +267,7 @@ const styles = StyleSheet.create({
   section: {
     flex: 1,
     width: "100%",
-    paddingHorizontal: 10,
-    marginBottom: 20,
+    marginVertical: 20,
   },
 });
 
