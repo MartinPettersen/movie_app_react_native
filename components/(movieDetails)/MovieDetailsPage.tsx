@@ -22,6 +22,8 @@ import { useGetActorImage } from "../../hooks/useGetActorImage";
 import { useGetMoviesDetails } from "../../hooks/useGetMoviesDetails";
 import { useGetMovieTrailers } from "../../hooks/useGetMovieTrailers";
 import MovieTrailerPlayer from "./MovieTrailerPlayer";
+import { useGetMovieRecommendations } from "../../hooks/useGetMovieRecommendations";
+import MovieListContainer from "../(home)/MovieListContainer";
 
 type RenderProp = {
   item: ActorType;
@@ -39,6 +41,8 @@ const MovieDetailsPage = ({ movie }: Props) => {
   const cast = useGetMovieActors(movie.id);
   const details = useGetMoviesDetails(movie.id);
   const movieTrailers = useGetMovieTrailers(movie.id) ?? [];
+  const recommendedMovies = useGetMovieRecommendations(movie.id);
+
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
       onPress={() => navigation.navigate("ActorDetails", { actor: item })}
@@ -57,19 +61,19 @@ const MovieDetailsPage = ({ movie }: Props) => {
   );
   const renderTrailerItem = ({ item }: RenderTrailerProp) => (
     <>
-    <TouchableOpacity
-      onPress={() => navigation.navigate("Trailer", { trailerId: item.key })}
-    >
-            <View style={styles.trailerCard}>
-        <Image
-          style={styles.thumbnail}
-          source={{
-            uri: `https://img.youtube.com/vi/${item.key}/mqdefault.jpg`,
-          }}
-          resizeMode="cover"
-        />
-      </View>
-    </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Trailer", { trailerId: item.key })}
+      >
+        <View style={styles.trailerCard}>
+          <Image
+            style={styles.thumbnail}
+            source={{
+              uri: `https://img.youtube.com/vi/${item.key}/mqdefault.jpg`,
+            }}
+            resizeMode="cover"
+          />
+        </View>
+      </TouchableOpacity>
     </>
   );
 
@@ -110,15 +114,15 @@ const MovieDetailsPage = ({ movie }: Props) => {
         )}
         <Text style={styles.textGray}>{movie.overview}</Text>
         <View style={{ flexDirection: "row" }}>
-              <View style={{ flexDirection: "row", paddingRight: 8 }}>
-                <Text style={styles.text}>Poeng: </Text>
-                <Text style={styles.textGray}>{movie.vote_average}</Text>
-              </View>
-              <View style={{ flexDirection: "row", paddingLeft: 8 }}>
-                <Text style={styles.text}>Populæritet: </Text>
-                <Text style={styles.textGray}>{movie.popularity}</Text>
-              </View>
-            </View>
+          <View style={{ flexDirection: "row", paddingRight: 8 }}>
+            <Text style={styles.text}>Poeng: </Text>
+            <Text style={styles.textGray}>{movie.vote_average}</Text>
+          </View>
+          <View style={{ flexDirection: "row", paddingLeft: 8 }}>
+            <Text style={styles.text}>Populæritet: </Text>
+            <Text style={styles.textGray}>{movie.popularity}</Text>
+          </View>
+        </View>
       </View>
 
       <FlatList
@@ -129,20 +133,27 @@ const MovieDetailsPage = ({ movie }: Props) => {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
-        <View style={{paddingTop: 24}}>
-      <Text style={styles.headline}>Trailere:</Text>
+      <View style={{ paddingTop: 24 }}>
+        <Text style={styles.headline}>Trailere:</Text>
 
-      {movieTrailers.length > 0 ? (
-        <FlatList
-        data={movieTrailers}
-        renderItem={renderTrailerItem}
-        keyExtractor={(item: MovieTrailer) => item.id}
-        numColumns={1}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        />
-      ) : null}
+        {movieTrailers.length > 0 ? (
+          <FlatList
+            data={movieTrailers}
+            renderItem={renderTrailerItem}
+            keyExtractor={(item: MovieTrailer) => item.id}
+            numColumns={1}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
+        ) : null}
       </View>
+      <View style={styles.section}>
+          <MovieListContainer
+            headline="Anbefalinger"
+            text="Se de Ferskeste Filmene på Stor Skjerm"
+            movies={recommendedMovies}
+          />
+        </View>
     </ScrollView>
   );
 };
@@ -197,7 +208,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#18181b",
   },
-  
+
   trailerCard: {
     width: 150,
     marginHorizontal: 10,
@@ -243,6 +254,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     textAlign: "center",
+  },
+  section: {
+    flex: 1,
+    width: "100%",
+    paddingHorizontal: 10,
+    marginBottom: 20,
   },
 });
 
