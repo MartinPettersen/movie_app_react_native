@@ -9,7 +9,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { MovieType, RootStackParamList, ActorInfo, ActorType, MovieTrailer } from "../../utils/types";
+import {
+  MovieType,
+  RootStackParamList,
+  ActorInfo,
+  ActorType,
+  MovieTrailer,
+} from "../../utils/types";
 import { useGetMovieActors } from "../../hooks/useGetMovieActors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useGetActorImage } from "../../hooks/useGetActorImage";
@@ -37,7 +43,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
     <TouchableOpacity
       onPress={() => navigation.navigate("ActorDetails", { actor: item })}
     >
-    <View style={styles.cardActor}>
+      <View style={styles.cardActor}>
         <Image
           style={styles.imageActor}
           source={{
@@ -50,7 +56,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
     </TouchableOpacity>
   );
   const renderTrailerItem = ({ item }: RenderTrailerProp) => (
-      <MovieTrailerPlayer videoId={item.key} />
+    <MovieTrailerPlayer videoId={item.key} />
   );
 
   return (
@@ -66,32 +72,59 @@ const MovieDetailsPage = ({ movie }: Props) => {
         <Text style={styles.headline}>{movie.original_title}</Text>
         {details && (
           <>
-            <Text style={styles.text}>Utgitt: {movie.release_date}, {details.runtime} min</Text>
-            <Text style={styles.text}>Stammer ifra: {details.origin_country}, Orginalspråk: {details.original_language}</Text>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row", paddingRight: 8 }}>
+                <Text style={styles.text}>Utgitt: </Text>
+                <Text style={styles.textGray}>{movie.release_date}</Text>
+              </View>
+              <View style={{ flexDirection: "row", paddingLeft: 8 }}>
+                <Text style={styles.textGray}>{details.runtime}</Text>
+                <Text style={styles.text}> min</Text>
+              </View>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row", paddingRight: 8 }}>
+                <Text style={styles.text}>Stammer ifra: </Text>
+                <Text style={styles.textGray}>{details.origin_country}</Text>
+              </View>
+              <View style={{ flexDirection: "row", paddingLeft: 8 }}>
+                <Text style={styles.text}>Orginalspråk: </Text>
+                <Text style={styles.textGray}>{details.original_language}</Text>
+              </View>
+            </View>
           </>
-          )}
-        <Text style={styles.text}>{movie.overview}</Text>
-        <Text style={styles.text}>Poeng: {movie.vote_average}, Populæritet: {movie.popularity}</Text>
-
+        )}
+        <Text style={styles.textGray}>{movie.overview}</Text>
+        <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row", paddingRight: 8 }}>
+                <Text style={styles.text}>Poeng: </Text>
+                <Text style={styles.textGray}>{movie.vote_average}</Text>
+              </View>
+              <View style={{ flexDirection: "row", paddingLeft: 8 }}>
+                <Text style={styles.text}>Populæritet: </Text>
+                <Text style={styles.textGray}>{movie.popularity}</Text>
+              </View>
+            </View>
       </View>
-      
+
       <FlatList
         data={cast}
         renderItem={renderCastItem}
-        keyExtractor={(item: ActorType) => item.id.toString()}
+        keyExtractor={(item: ActorType) => item.cast_id.toString()}
         numColumns={1}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
       {movieTrailers.length > 0 ? (
-      <FlatList
-        data={movieTrailers}
-        renderItem={renderTrailerItem}
-        keyExtractor={(item: MovieTrailer) => item.key}
-        numColumns={1}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />): null }
+        <FlatList
+          data={movieTrailers}
+          renderItem={renderTrailerItem}
+          keyExtractor={(item: MovieTrailer) => item.id}
+          numColumns={1}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      ) : null}
     </ScrollView>
   );
 };
@@ -113,6 +146,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  textGray: {
+    color: "#9ca3af",
     fontSize: 16,
     marginBottom: 10,
   },
@@ -148,7 +186,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     textAlign: "center",
   },
-  
+
   cardActor: {
     width: 100,
     marginHorizontal: 10,
@@ -159,7 +197,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     borderRadius: 250,
-    backgroundColor: "#18181b"
+    backgroundColor: "#18181b",
   },
   name: {
     position: "absolute",

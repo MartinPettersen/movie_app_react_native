@@ -13,6 +13,7 @@ export const useGetMovieTrailers = (movieId: number) => {
         const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${THEMOVIEDB_KEY}`;
         const res = await fetch(url);
         const data = await res.json();
+        console.log(data)
         if (data) {
           setMovieTrailers(data.results);
         } else {

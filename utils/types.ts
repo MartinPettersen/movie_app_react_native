@@ -28,6 +28,8 @@ export type RootStackParamList = {
     MovieDetails: { movie: MovieType };
     ActorDetails: { actor: ActorType };
     GenreDetails: { genre: string, id: string };
+    Trailer: { trailerId: string };
+
 };
 
 export type Cast = {

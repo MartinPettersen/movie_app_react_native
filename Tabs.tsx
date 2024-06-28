@@ -9,6 +9,7 @@ import SearchScreen from "./screens/SearchScreen";
 import MovieDetailsScreen from "./screens/MovieDetailsScreen";
 import GenreScreen from "./screens/GenreScreen";
 import ActorDetailsScreen from "./screens/ActorDetailsScreen";
+import TrailerScreen from "./screens/TrailerScreen";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Home" component={HomeScreen} />
     <HomeStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
     <HomeStack.Screen name="ActorDetails" component={ActorDetailsScreen} />
+    <HomeStack.Screen name="Trailer" component={TrailerScreen} />
   </HomeStack.Navigator>
 );
 
@@ -29,6 +31,7 @@ const SearchStackScreen = () => (
   <SearchStack.Navigator screenOptions={{ headerShown: false }}>
     <SearchStack.Screen name="Search" component={SearchScreen} />
     <SearchStack.Screen name="ActorDetails" component={ActorDetailsScreen} />
+    <SearchStack.Screen name="Trailer" component={TrailerScreen} />
   </SearchStack.Navigator>
 );
 
@@ -36,6 +39,8 @@ const GenreStackScreen = () => (
   <GenreStack.Navigator screenOptions={{ headerShown: false }}>
     <GenreStack.Screen name="Genres" component={GenresScreen} />
     <GenreStack.Screen name="GenreDetails" component={GenreScreen} />
+    <GenreStack.Screen name="Trailer" component={TrailerScreen} />
+
   </GenreStack.Navigator>
 );
 
