@@ -56,7 +56,21 @@ const MovieDetailsPage = ({ movie }: Props) => {
     </TouchableOpacity>
   );
   const renderTrailerItem = ({ item }: RenderTrailerProp) => (
-    <MovieTrailerPlayer videoId={item.key} />
+    <>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Trailer", { trailerId: item.key })}
+    >
+            <View style={styles.trailerCard}>
+        <Image
+          style={styles.thumbnail}
+          source={{
+            uri: `https://img.youtube.com/vi/${item.key}/mqdefault.jpg`,
+          }}
+          resizeMode="cover"
+        />
+      </View>
+    </TouchableOpacity>
+    </>
   );
 
   return (
@@ -115,16 +129,20 @@ const MovieDetailsPage = ({ movie }: Props) => {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
+        <View style={{paddingTop: 24}}>
+      <Text style={styles.headline}>Trailere:</Text>
+
       {movieTrailers.length > 0 ? (
         <FlatList
-          data={movieTrailers}
-          renderItem={renderTrailerItem}
-          keyExtractor={(item: MovieTrailer) => item.id}
-          numColumns={1}
-          horizontal
-          showsHorizontalScrollIndicator={false}
+        data={movieTrailers}
+        renderItem={renderTrailerItem}
+        keyExtractor={(item: MovieTrailer) => item.id}
+        numColumns={1}
+        horizontal
+        showsHorizontalScrollIndicator={false}
         />
       ) : null}
+      </View>
     </ScrollView>
   );
 };
@@ -161,8 +179,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  thumbnail: {
+    width: "100%",
+    aspectRatio: 1 / 0.7,
+    resizeMode: "cover",
+    marginBottom: 20,
+  },
   card: {
-    width: 200,
+    width: 150,
     marginHorizontal: 10,
     marginTop: 10,
     borderRadius: 10,
@@ -172,6 +196,14 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 10,
     backgroundColor: "#18181b",
+  },
+  
+  trailerCard: {
+    width: 150,
+    marginHorizontal: 10,
+    marginTop: 10,
+    borderRadius: 10,
+    height: 100,
   },
   title: {
     position: "absolute",

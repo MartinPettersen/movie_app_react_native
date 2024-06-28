@@ -7,7 +7,7 @@ type MovieTrailerProps = {
 };
 
 const MovieTrailerPlayer: React.FC<MovieTrailerProps> = ({ videoId }) => {
-  const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+  const videoUrl = `https://www.youtube.com/watch/${videoId}?modestbranding=1&showinfo=0&controls=1`;
 
   return (
     <View style={styles.container}>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   webview: {
-    width: 100,
+    width: 400,
     height: 100,
     borderRadius: 15
 
