@@ -13,7 +13,6 @@ export const useGetMovieRecommendations = (movieId: number) => {
         const url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?language=en-US&page=1&api_key=${THEMOVIEDB_KEY}`;
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data)
         if (data.results) {
           setMovies(data.results);
         } else {

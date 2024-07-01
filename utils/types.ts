@@ -139,3 +139,20 @@ export type MovieTrailer = {
     size: number;
     type: string;
   };
+
+export type AuthorDetails = {
+    avatar_path: string;
+    name: string;
+    rating: number;
+    username: string;
+  };
+  
+export type Review = {
+    author: string;
+    author_details: AuthorDetails;
+    content: string;
+    created_at: string;
+    id: string;
+    updated_at: string;
+    url: string;
+  };

@@ -4,7 +4,7 @@ import { ActorInfo, ActorType, MovieType } from '../utils/types';
 import * as FileSystem from 'expo-file-system';
 
 export const useGetMovieActors = (query: number) => {
-  const [movies, setMovies] = useState<ActorType[]>([]);
+  const [movies, setMovies] = useState<ActorInfo[]>([]);
 
   useEffect(() => {
     const fetchMovies = async () => {

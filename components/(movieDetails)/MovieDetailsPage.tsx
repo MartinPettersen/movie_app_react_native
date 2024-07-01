@@ -15,6 +15,7 @@ import {
   ActorInfo,
   ActorType,
   MovieTrailer,
+  Review,
 } from "../../utils/types";
 import { useGetMovieActors } from "../../hooks/useGetMovieActors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -25,12 +26,16 @@ import MovieTrailerPlayer from "./MovieTrailerPlayer";
 import { useGetMovieRecommendations } from "../../hooks/useGetMovieRecommendations";
 import MovieListContainer from "../(home)/MovieListContainer";
 import { useGetSimilarMovies } from "../../hooks/useGetSimilarMovies";
+import { useGetMovieReviews } from "../../hooks/useGetMovieReviews";
 
 type RenderProp = {
   item: ActorType;
 };
 type RenderTrailerProp = {
   item: MovieTrailer;
+};
+type RenderReviewProp = {
+  item: Review;
 };
 type Props = {
   movie: MovieType;
@@ -44,6 +49,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
   const movieTrailers = useGetMovieTrailers(movie.id) ?? [];
   const recommendedMovies = useGetMovieRecommendations(movie.id);
   const similarMovies = useGetSimilarMovies(movie.id);
+  const movieReviews = useGetMovieReviews(movie.id);
 
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
@@ -75,6 +81,27 @@ const MovieDetailsPage = ({ movie }: Props) => {
             resizeMode="cover"
           />
         </View>
+      </TouchableOpacity>
+    </>
+  );
+
+  const renderReviewItem = ({ item }: RenderReviewProp) => (
+    <>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Trailer", { trailerId: item.id })}
+        style={styles.review}
+      >
+        <View style={styles.reviewCard}>
+          <Image
+            style={styles.avatar}
+            source={{
+              uri: `https://image.tmdb.org/t/p/original${item.author_details.avatar_path}`,
+            }}
+            resizeMode="cover"
+          />
+        <Text style={styles.reviewName}>{item.author}</Text>
+        </View>
+        <Text style={styles.textGray}>{item.content}</Text>
       </TouchableOpacity>
     </>
   );
@@ -149,19 +176,37 @@ const MovieDetailsPage = ({ movie }: Props) => {
           />
         ) : null}
       </View>
-      <View style={styles.section}>
-        <MovieListContainer
-          headline="Anbefalinger"
-          text="Fordi en god film alltid fortjener en oppfølger"
-          movies={recommendedMovies}
-        />
-      </View>
-      <View style={styles.section}>
-        <MovieListContainer
-          headline="Lignende Filmer Du Vil Elsker"
-          text="Filmopplevelser som gir mer av det du elsker"
-          movies={similarMovies}
-        />
+      {recommendedMovies ? (
+        <View style={styles.section}>
+          <MovieListContainer
+            headline="Anbefalinger"
+            text="Fordi en god film alltid fortjener en oppfølger"
+            movies={recommendedMovies}
+          />
+        </View>
+      ) : null}
+      {similarMovies ? (
+        <View style={styles.section}>
+          <MovieListContainer
+            headline="Lignende Filmer Du Vil Elsker"
+            text="Filmopplevelser som gir mer av det du elsker"
+            movies={similarMovies}
+          />
+        </View>
+      ) : null}
+
+      <View style={{ paddingTop: 24 }}>
+        <Text style={styles.headline}>Reviews:</Text>
+
+        {movieReviews ? (
+          <FlatList
+            data={movieReviews}
+            renderItem={renderReviewItem}
+            keyExtractor={(item: Review) => item.id}
+            numColumns={1}
+ 
+          />
+        ) : null}
       </View>
     </ScrollView>
   );
@@ -198,12 +243,25 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     marginBottom: 20,
   },
-
+  review: {
+    backgroundColor: "#18181b",
+    borderRadius: 10,
+    marginBottom: 40,
+    padding: 4,
+  },
   thumbnail: {
     width: "100%",
     aspectRatio: 1 / 0.7,
     resizeMode: "cover",
     marginBottom: 20,
+  },
+  avatar: {
+    width: "100%",
+    aspectRatio: 1 / 1,
+    resizeMode: "cover",
+    marginBottom: 20,
+    borderRadius: 125,
+    backgroundColor: "#27272a"
   },
   card: {
     width: 150,
@@ -223,6 +281,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginTop: 10,
     borderRadius: 10,
+    height: 100,
+  },
+  
+  reviewCard: {
+    width: 150,
+    marginHorizontal: 5,
+    marginVertical: 5,
+    marginBottom: 80,
+    borderRadius: 25,
     height: 100,
   },
   title: {
@@ -262,6 +329,17 @@ const styles = StyleSheet.create({
     color: "white",
     paddingHorizontal: 10,
     paddingVertical: 5,
+    textAlign: "center",
+  },
+  reviewName: {
+    position: "absolute",
+    top: 160,
+    left: 25,
+    fontWeight: "bold",
+    fontSize: 10,
+    width: 100,
+    right: 0,
+    color: "white",
     textAlign: "center",
   },
   section: {
