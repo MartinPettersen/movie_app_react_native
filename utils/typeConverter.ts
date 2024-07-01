@@ -1,4 +1,4 @@
-import { ActorInfo } from "./types";
+import { ActorInfo, ActorType } from "./types";
 
 export function convertActorInfoToActorType(actorInfo: ActorInfo): ActorType {
     return {

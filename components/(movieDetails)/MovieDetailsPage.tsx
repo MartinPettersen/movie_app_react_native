@@ -27,9 +27,10 @@ import { useGetMovieRecommendations } from "../../hooks/useGetMovieRecommendatio
 import MovieListContainer from "../(home)/MovieListContainer";
 import { useGetSimilarMovies } from "../../hooks/useGetSimilarMovies";
 import { useGetMovieReviews } from "../../hooks/useGetMovieReviews";
+import { convertActorInfoToActorType } from "../../utils/typeConverter";
 
 type RenderProp = {
-  item: ActorType;
+  item: ActorInfo;
 };
 type RenderTrailerProp = {
   item: MovieTrailer;
@@ -53,7 +54,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
 
   const renderCastItem = ({ item }: RenderProp) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("ActorDetails", { actor: item })}
+      onPress={() => navigation.navigate("ActorDetails", { actor: convertActorInfoToActorType(item) })}
     >
       <View style={styles.cardActor}>
         <Image
@@ -156,7 +157,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
       <FlatList
         data={cast}
         renderItem={renderCastItem}
-        keyExtractor={(item: ActorType) => item.cast_id.toString()}
+        keyExtractor={(item: ActorInfo) => item.cast_id.toString()}
         numColumns={1}
         horizontal
         showsHorizontalScrollIndicator={false}
