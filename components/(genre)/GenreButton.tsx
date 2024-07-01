@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject, 
-    //backgroundColor: "#f87171",
     opacity: 0.2, 
     zIndex: 2, 
     borderRadius: 5,

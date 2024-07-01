@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   
   card: {
-    width: 200,
+    width: 160,
     marginHorizontal: 10,
     marginTop: 10,
     borderRadius: 10,
