@@ -87,8 +87,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
 
   const renderReviewItem = ({ item }: RenderReviewProp) => (
     <>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Trailer", { trailerId: item.id })}
+      <View
         style={styles.review}
       >
         <View style={styles.reviewCard}>
@@ -102,7 +101,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
         <Text style={styles.reviewName}>{item.author}</Text>
         </View>
         <Text style={styles.textGray}>{item.content}</Text>
-      </TouchableOpacity>
+      </View>
     </>
   );
 
