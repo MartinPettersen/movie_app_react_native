@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Image,
-  ScrollView,
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
@@ -19,10 +18,8 @@ import {
 } from "../../utils/types";
 import { useGetMovieActors } from "../../hooks/useGetMovieActors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { useGetActorImage } from "../../hooks/useGetActorImage";
 import { useGetMoviesDetails } from "../../hooks/useGetMoviesDetails";
 import { useGetMovieTrailers } from "../../hooks/useGetMovieTrailers";
-import MovieTrailerPlayer from "./MovieTrailerPlayer";
 import { useGetMovieRecommendations } from "../../hooks/useGetMovieRecommendations";
 import MovieListContainer from "../(home)/MovieListContainer";
 import { useGetSimilarMovies } from "../../hooks/useGetSimilarMovies";
@@ -88,9 +85,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
 
   const renderReviewItem = ({ item }: RenderReviewProp) => (
     <>
-      <View
-        style={styles.review}
-      >
+      <View style={styles.review}>
         <View style={styles.reviewCard}>
           <Image
             style={styles.avatar}
@@ -106,8 +101,8 @@ const MovieDetailsPage = ({ movie }: Props) => {
     </>
   );
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
+  const ListHeaderComponent = () => (
+    <>
       <Image
         style={styles.image}
         source={{
@@ -154,6 +149,7 @@ const MovieDetailsPage = ({ movie }: Props) => {
         </View>
       </View>
 
+      <Text style={styles.headline}>Cast:</Text>
       <FlatList
         data={cast}
         renderItem={renderCastItem}
@@ -194,21 +190,17 @@ const MovieDetailsPage = ({ movie }: Props) => {
           />
         </View>
       ) : null}
+      <Text style={styles.headline}>Reviews:</Text>
+    </>
+  );
 
-      <View style={{ paddingTop: 24 }}>
-        <Text style={styles.headline}>Reviews:</Text>
-
-        {movieReviews ? (
-          <FlatList
-            data={movieReviews}
-            renderItem={renderReviewItem}
-            keyExtractor={(item: Review) => item.id}
-            numColumns={1}
- 
-          />
-        ) : null}
-      </View>
-    </ScrollView>
+  return (
+    <FlatList
+      data={movieReviews}
+      renderItem={renderReviewItem}
+      keyExtractor={(item: Review) => item.id}
+      ListHeaderComponent={ListHeaderComponent}
+    />
   );
 };
 
@@ -281,71 +273,36 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginTop: 10,
     borderRadius: 10,
-    height: 100,
+    backgroundColor: "#18181b",
   },
-  
-  reviewCard: {
-    width: 150,
-    marginHorizontal: 5,
-    marginVertical: 5,
-    marginBottom: 80,
-    borderRadius: 25,
-    height: 100,
-  },
-  title: {
-    position: "absolute",
-    top: 50,
-    left: 0,
-    fontWeight: "bold",
-    fontSize: 10,
-    width: 100,
-    right: 0,
-    color: "white",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    textAlign: "center",
-  },
-
   cardActor: {
-    width: 100,
+    width: 150,
     marginHorizontal: 10,
     marginTop: 10,
-    borderRadius: 10,
   },
   imageActor: {
     width: "100%",
-    height: 100,
-    borderRadius: 250,
+    height: 150,
+    borderRadius: 10,
+    backgroundColor: "#18181b",
+  },
+  reviewCard: {
+    width: 150,
+    borderRadius: 10,
     backgroundColor: "#18181b",
   },
   name: {
-    position: "absolute",
-    top: 65,
-    left: 0,
-    fontWeight: "bold",
-    fontSize: 10,
-    width: 100,
-    right: 0,
     color: "white",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    fontSize: 16,
     textAlign: "center",
   },
   reviewName: {
-    position: "absolute",
-    top: 160,
-    left: 25,
-    fontWeight: "bold",
-    fontSize: 10,
-    width: 100,
-    right: 0,
     color: "white",
-    textAlign: "center",
+    fontSize: 16,
+    textAlign: "left",
   },
   section: {
-    flex: 1,
-    width: "100%",
-    marginVertical: 20,
+    paddingVertical: 20,
   },
 });
 

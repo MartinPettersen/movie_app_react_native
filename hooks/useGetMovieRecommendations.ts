@@ -1,30 +1,24 @@
 import { useEffect, useState } from 'react';
 import { THEMOVIEDB_KEY } from '@env';
-import { ActorType, Genre, MovieType } from '../utils/types';
+import { MovieType } from '../utils/types';
 
 export const useGetMovieRecommendations = (movieId: number) => {
-  const [movies, setMovies] = useState<MovieType[] | null>([]);
+  const [recommendedMovies, setRecommendedMovies] = useState<MovieType[] | null>(null);
 
-
-  
   useEffect(() => {
-    const fetchMovieRecommendations = async () => {
+    const fetchRecommendations = async () => {
       try {
-        const url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?language=en-US&page=1&api_key=${THEMOVIEDB_KEY}`;
+        const url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${THEMOVIEDB_KEY}`;
         const res = await fetch(url);
         const data = await res.json();
-        if (data.results) {
-          setMovies(data.results);
-        } else {
-          setMovies(null);
-        }
+        setRecommendedMovies(data.results);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
-    fetchMovieRecommendations();
-  }, []);
+    fetchRecommendations();
+  }, [movieId]);
 
-  return movies;
+  return recommendedMovies;
 };
